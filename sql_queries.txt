@@ -1,0 +1,17 @@
+1) Вывести список логинов курьеров с количеством их заказов в статусе «В доставке» (поле inDelivery = true). 
+
+Два варианта: через id и через track.
+
+SELECT c.login, COUNT(o.id) FROM "Orders" as o INNER JOIN "Couriers" AS c ON o."courierId"=c.id WHERE o."inDelivery"=true GROUP BY c.login;
+
+SELECT login, COUNT(track) FROM "Orders" as o INNER JOIN "Couriers" AS c ON o."courierId"=c.id WHERE "inDelivery"=true GROUP BY login;
+
+
+2) Вывод статусов заказов.
+Статусы определяются по следующему правилу:
+Если поле finished == true, то вывести статус 2.
+Если поле canсelled == true, то вывести статус -1.
+Если поле inDelivery == true, то вывести статус 1.
+Для остальных случаев вывести 0
+
+select track, case when finished=true then '2' when cancelled=true then '-1' when "inDelivery"=true then '1' else '0' end from "Orders";
